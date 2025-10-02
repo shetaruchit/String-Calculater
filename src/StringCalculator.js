@@ -13,8 +13,11 @@ class StringCalculator {
   }
 
   _parseNumbers(numbers) {
-    if (numbers.includes(',')) {
-      return numbers.split(',');
+
+    const normalizedNumbers = numbers.replace(/\n/g, ',');
+
+    if (normalizedNumbers.includes(',')) {
+      return normalizedNumbers.split(',');
     }
     return [numbers];
   }

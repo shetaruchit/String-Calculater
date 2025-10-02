@@ -4,7 +4,8 @@ class StringCalculator {
       return 0;
     }
 
-    const numbersArray = this._parseNumbers(numbers);
+    const { delimiter, numbersString } = this._extractDelimiterAndNumbers(numbers);
+    const numbersArray = this._parseNumbers(numbersString, delimiter);
     return this._calculateSum(numbersArray);
   }
 
@@ -12,12 +13,22 @@ class StringCalculator {
     return numbers === '';
   }
 
-  _parseNumbers(numbers) {
+  _extractDelimiterAndNumbers(numbers) {
+    if(numbers.startsWith('//')) {
+      const delimiterEndIndex = numbers.indexOf('\n');
+      const delimiter = numbers.substring(2, delimiterEndIndex);
+      const numbersString = numbers.substring(delimiterEndIndex + 1);
+      return { delimiter, numbersString};
+    }
+    return { delimiter: ',', numbersString: numbers };
+  }
 
-    const normalizedNumbers = numbers.replace(/\n/g, ',');
+  _parseNumbers(numbers, delimiter) {
 
-    if (normalizedNumbers.includes(',')) {
-      return normalizedNumbers.split(',');
+    const normalizedNumbers = numbers.replace(/\n/g, delimiter);
+
+    if (normalizedNumbers.includes(delimiter)) {
+      return normalizedNumbers.split(delimiter);
     }
     return [numbers];
   }

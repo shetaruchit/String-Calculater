@@ -6,7 +6,7 @@ class StringCalculator {
 
     if(numbers.includes(',')) {
       const parts = numbers.split(',');
-      return parseInt(parts[0]) + parseInt(parts[1]);
+      return parts.reduce((sum, num)=> sum + parseInt(num), 0);
     }
 
     return parseInt(numbers); 

@@ -21,5 +21,10 @@ describe('StringCalculator', () => {
             expect(calculator.add('1,5')).toBe(6);
         });
 
+        test('should handle any amount of numbers', () => {
+            expect(calculator.add('1,2,3')).toBe(6);
+            expect(calculator.add('1,2,3,4,5')).toBe(15);
+        });
+
     });
 });
